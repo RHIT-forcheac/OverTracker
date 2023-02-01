@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+  <link rel="stylesheet" href="styles/bootstrap-material-design.min.css">
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+  <title>VillaExpress</title>
+</head>
+
+<body>
+  <ul id="navBar" class="nav nav-tabs">
+    <li class="nav-item">
+      <img id="villaLogo" src="./images/villa.png" alt="villa logo">
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">VillaExpress</a>
+    </li>
+  </ul>
+  <div id="mainPage" class="container page-container">
+    <!-- form for login prompt -->
+    <form>
+      <div class="form-group">
+        <label for="usernameField" class="bmd-label-floating" placeholder="Your Username">Username</label>
+        <input id="usernameField" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="passwordField" class="bmd-label-floating" placeholder="Password">Password</label>
+        <input id="passwordField" type="password" class="form-control">
+      </div>
+      <button id="loginButton" type="button" class="btn btn-primary btn-raised">Login</button>
+      <button id="registerButton" type="button" class="btn btn-primary btn-raised" data-toggle="modal"
+        data-target="#registerModal">Register</button>
+    </form>
+
+    <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Welcome</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            
+            <form>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="username">Username</label>
+                  <input type="text" class="form-control" id="username" placeholder="John">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="password">Password</label>
+                  <input type="text" class="form-control" id="password">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="confirmPassword">Confirm Password</label>
+                  <input type="text" class="form-control" id="confirmPassword">
+                </div>
+              </div>
+            </form>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary">Create Account</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="scripts/jquery.min.js"></script>
+  <script src="scripts/popper.js"></script>
+  <script src="scripts/bootstrap-material-design.js"></script>
+  <script>
+    $("body").bootstrapMaterialDesign();
+  </script>
+  <script src="/__/firebase/7.18.0/firebase-app.js"></script>
+  <script src="/__/firebase/7.18.0/firebase-analytics.js"></script>
+  <script src="/__/firebase/init.js"></script>
+  <script type="module" src="./Scripts/main.js"></script>
+</body>
+
+</html>
