@@ -1,5 +1,5 @@
 body {
-    background: #DDDDDD;
+    background-image: url('../images/galleryBackground.jpg');
 }
 
 .navbar {
@@ -29,7 +29,6 @@ body {
     margin: 10px 0;
 }
 
-#listPage .card-title,
 #listPage .card-subtitle {
     white-space: nowrap;
     overflow: hidden;
@@ -151,4 +150,8 @@ body {
 
 .nav-tabs .nav-link{
     color: #FE913E;
+}
+
+#mainPage {
+    background-color: #21222680;
 }

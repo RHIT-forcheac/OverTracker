@@ -32,7 +32,7 @@ rhit.createHeroCard = function(currentHero) {
     const newCol = document.createElement("div");
     newCol.className = "col";
 
-    
+    const newButton = document.createElement("button")
 
     const newCard = document.createElement("div");
     newCard.className = "card";
