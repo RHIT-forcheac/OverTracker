@@ -1,5 +1,5 @@
 body {
-    background-image: url('../images/galleryBackground.jpg');
+    background-image: url('../images/galleryBackground_blur.jpg');
 }
 
 .navbar {
@@ -9,20 +9,6 @@ body {
 
 .page-container {
     margin-top: 75px;
-}
-
-#fab {
-    position: fixed;
-    right: 10px;
-    bottom: 10px;
-    background: #f99e1a;
-    color: white;
-    z-index: 999;
-}
-
-#fab:active {
-    transform: translateY(2px);
-    opacity: 0.8;
 }
 
 .card {
@@ -54,19 +40,6 @@ body {
     font-size: 1.1em;
     padding: 10px 30px;
     border-radius: 5px;
-}
-
-.bmd-layout-content {
-    height: 100vh;
-}
-
-.bmd-layout-drawer>header {
-    background-color: #6f94f0;
-    color: white;
-}
-
-.bmd-layout-drawer>ul {
-    background-color: #ddd;
 }
 
 .list-group-item :first-child {
@@ -122,25 +95,30 @@ body {
 }
 
 .heroCardTitle {
-    font-size: 1vw;
+    font:small-caption;
     font-weight: bold;
     text-align: center;
     margin-bottom: 0;
+    color: white;
 }
 
-.card-body {
-    padding: 0;
+.row {
+    justify-content: center;
 }
 
 .col {
     flex-grow: 0;
-    padding: 11px;
     white-space: nowrap;
+    padding-left: 0;
+    padding-right: 0;
 }
 
 .card {
-    width: 4em;
-    height: 7em;
+    width: 80px;
+    height: 130px;
+    background-color: #00000050;
+    border-radius: 15px;
+    border: solid 3px;
 }
 
 #navBar {
@@ -154,4 +132,80 @@ body {
 
 #mainPage {
     background-color: #21222680;
+    padding-left: 0;
+    padding-right: 0;
+    margin-top: 60px;
+    border-radius: 20px;
+}
+
+#carouselExampleIndicators {
+    width: 60%;
+    height: 50%;
+    margin-top: 30px;
+}
+
+#homePage {
+    margin-top: 30px;
+    display: flex;
+}
+
+.profileBox {
+    width: 300px;
+    height: 300px;
+    padding: 20px;
+    margin: 50px;
+    margin-left: 20px;
+    border-radius: 20px;
+    border: solid 3px;
+    background: #00000050;
+}
+
+#hero-pic {
+    background: #00000000;
+    box-shadow: none;
+    border: none;
+}
+
+#hero-name {
+    margin-top: 20px;
+}
+
+#homePage2 {
+    display: flex;
+    justify-content: center;
+}
+
+#overviewContainer {
+    margin-left: 50px;
+}
+
+.overviewBox {
+    width: 700px;
+    padding: 20px;
+    margin-left: 20px;
+    border-radius: 20px;
+    border: solid 3px;
+    color: white;
+    border-color: #00000050;
+    background: #00000050;
+}
+
+#hourContainer {
+    margin-top: 0;
+    width: 300px;
+    height: 300px;
+    border-radius: 20px;
+    border: solid 3px;
+    margin-bottom: 60px;
+    background: #00000050;
+}
+
+#hourCount {
+    width: 250px;
+    height: 250px;
+    margin-top: 25px;
+    border-radius: 125px;
+    border: solid 5px;
+    background: #0ee2db7f;
+    text-align: center;
 }
