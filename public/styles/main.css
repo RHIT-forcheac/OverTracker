@@ -121,6 +121,10 @@ body {
     border: solid 3px;
 }
 
+.cardButton {
+    background-color: #00000050;
+}
+
 #navBar {
     background-color: #212226;
     color: #FACE59;

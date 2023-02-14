@@ -33,6 +33,15 @@ rhit.createHeroCard = function(currentHero) {
     newCol.className = "col";
 
     const newButton = document.createElement("button")
+    newButton.type = "button";
+
+    newButton.className = "cardButton";
+
+    newButton.onclick = (event) => {
+        console.log("Hero Button Clicked");
+        console.log(`Navigating to ../heroPage.html?hero=${currentHero.name}`);
+        //window.location.href = `../heroPage.html?hero=${currentHero.name}`;
+    };
 
     const newCard = document.createElement("div");
     newCard.className = "card";
@@ -48,7 +57,8 @@ rhit.createHeroCard = function(currentHero) {
     newNameDiv.appendChild(newHeroName);
     newCard.appendChild(newHeroPortrait);
     newCard.appendChild(newNameDiv);
-    newCol.appendChild(newCard);
+    newButton.appendChild(newCard)
+    newCol.appendChild(newButton);
     return newCol;
 }
 
