@@ -33,13 +33,14 @@ body {
 }
 
 #rosefireButton {
+    margin-top: 5%;
     display: block;
-    margin: 60px auto;
     color: white;
     background: #6f94f0;
     font-size: 1.1em;
     padding: 10px 30px;
     border-radius: 5px;
+    border: solid 3px;
 }
 
 .list-group-item :first-child {
@@ -67,25 +68,25 @@ body {
     z-index: 999;
 }
 
-#detailPage #profilePhoto {
-    display: block;
-    max-width: 150px;
-    max-height: 200px;
-}
-
 #Photo  {
     display: inline-flex;
     text-align: center;
 }
 
 #firebaseui-auth-container {
-    margin-top: 22%;
+    margin: auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
     opacity: 1;
 }
 
 #firebase-ui-card {
-    margin-top: 16%;
+    margin: auto;
+    margin-top: 20%;
     opacity: 0.9;
+    border-radius: 50px;
+    background-color: #00000050;
+    border: solid 3px;
 }
 
 #overFiguresLogo {

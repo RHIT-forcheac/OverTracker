@@ -14,15 +14,13 @@
 
 <body>
   <nav class="navbar navbar-dark fixed-bottom">
-    <a class="navbar-brand" href="#">Welcome to UnderWatch!   Sign in for more!</a>
+    <a class="navbar-brand" href="#">Welcome to UnderWatch! Sign in for more!</a>
   </nav>
   <div id="loginPage" class="container page-container">
-    <div id="firebase-ui-card" class="card mx-auto" style="width: 18rem;">
-      <div class="card-body">
-        <div id="firebaseui-auth-container"></div>
-      </div>
+    <div id="firebase-ui-card" class="mx-auto" style="width: 18rem;">
+      <div id="firebaseui-auth-container"></div>
     </div>
-    <button id="rosefireButton" type="button" class="btn">Sign in with Rosefire</button>
+    <button id="rosefireButton" type="button" class="btn mx-auto">Sign in with Rosefire</button>
   </div>
 
   <style>
@@ -32,7 +30,7 @@
       background-attachment: fixed;
       background-size: 100% 100%;
     }
-    </style>
+  </style>
 
   <script src="scripts/jquery.min.js"></script>
   <script src="scripts/popper.js"></script>
