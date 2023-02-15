@@ -31,6 +31,30 @@ rhit.SideNavController = class {
 	}
 }
 
+rhit.TagManager = class {
+	constructor() {
+		this.tag = false;
+		document.querySelector("#submitTag").addEventListener("click", (event) => {
+			const tag = document.querySelector("#inputCaption").value;
+			const ref = firebase.firestore().collection(rhit.FB_COLLECTION_USERS);
+			ref.add({ [rhit.FB_KEY_BATTLETAG]: tag, })
+				.then(function (docRef) {
+					console.log("Player updated with TAG: ", docRef.id);
+					this.tag = true;
+					window.location.href("/homeScreen.html");
+				})
+				.catch(function (error) {
+					console.error("Error adding TAG: ", error);
+				});
+		});
+	}
+
+	//write method to check if the tag is valid (could be flawed)
+	get isSetUp() {
+		return this.tag;
+	}
+}
+
 rhit.FbAuthManager = class {
 	constructor() {
 		this._user = null;
@@ -193,9 +217,15 @@ rhit.LoginPageController = class {
 
 rhit.checkForRedirects = function () {
 	if (document.querySelector("#loginPage") && rhit.fbAuthManager.isSignedIn) {
-		window.location.href = "/homeScreen.html";
+		window.location.href = "/tag.html";
 	}
 	if (!document.querySelector("#loginPage") && !rhit.fbAuthManager.isSignedIn) {
+		window.location.href = "/";
+	}
+	if (document.querySelector("#tagPage") && rhit.TagManager.isSetUp) {
+		window.location.href = "/homeScreen.html";
+	}
+	if (document.querySelector("#tagPage") && !rhit.TagManager.isSetUp) {
 		window.location.href = "/";
 	}
 };
@@ -208,6 +238,10 @@ rhit.initializePage = function () {
 	if (document.querySelector("#mainPage")) {
 		console.log("You are on the gallery page.");
 		initializeGalleryPage();
+	}
+	if (document.querySelector("#tagPage")) {
+		console.log("You are on the battleTag page.");
+		new rhit.TagManager();
 	}
 };
 
@@ -241,7 +275,7 @@ rhit.main = function () {
 		console.log("Is signed In: ", rhit.fbAuthManager.isSignedIn);
 		rhit.createUserObjectIfNeeded().then((isUserNew) => {
 			if (isUserNew) {
-				window.location.href = "/profile.html";
+				window.location.href = "/tag.html";
 				return;
 			}
 			rhit.checkForRedirects();
