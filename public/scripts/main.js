@@ -2,6 +2,7 @@ var rhit = rhit || {};
 rhit.fbAuthManager = null;
 rhit.fbUserManager = null;
 rhit.FB_COLLECTION_USERS = "Users";
+rhit.FB_KEY_BATTLETAG = "battleTag";
 rhit.FB_KEY_NAME = "name";
 rhit.FB_KEY_PHOTO_URL = "photoUrl";
 
