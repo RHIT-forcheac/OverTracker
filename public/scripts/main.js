@@ -6,9 +6,10 @@ rhit.FB_KEY_BATTLETAG = "battleTag";
 rhit.FB_KEY_NAME = "name";
 rhit.FB_KEY_PHOTO_URL = "photoUrl";
 
-import {
-	initializeGalleryPage,
-} from "./heroGallery.js"
+// import {
+// 	initializeGalleryPage,
+// } from "./heroGallery.js"
+// const {initializeGalleryPage} = require('./heroGallery.js');
 
 // rhit.getHeroData = async function(){
 // 	const heroesJson = await getHeroNamesAndImages();
@@ -29,31 +30,27 @@ rhit.SideNavController = class {
 			});
 		}
 	}
-}
+};
 
-rhit.TagManager = class {
+rhit.TagPageController = class {
 	constructor() {
-		this.tag = false;
-		document.querySelector("#submitTag").addEventListener("click", (event) => {
-			const tag = document.querySelector("#inputCaption").value;
-			const ref = firebase.firestore().collection(rhit.FB_COLLECTION_USERS);
-			ref.add({ [rhit.FB_KEY_BATTLETAG]: tag, })
-				.then(function (docRef) {
-					console.log("Player updated with TAG: ", docRef.id);
-					this.tag = true;
-					window.location.href("/homeScreen.html");
-				})
-				.catch(function (error) {
-					console.error("Error adding TAG: ", error);
-				});
-		});
+		console.log("TagController Created!");
+		document.querySelector("#submitTag").onclick = (event) => {
+			console.log("button working!");
+			const tag = document.querySelector("#inputTag").value;
+			rhit.fbUserManager.updateTag(tag).then(() => {
+				window.location.href = "/homeScreen.html";
+			});
+		}
+		rhit.fbUserManager.beginListening(rhit.fbAuthManager.uid, this.updateView.bind(this));
 	}
 
-	//write method to check if the tag is valid (could be flawed)
-	get isSetUp() {
-		return this.tag;
+	updateView() {
+		if(rhit.fbUserManager.tag) {
+			document.querySelector("#inputTag").value = rhit.fbUserManager.tag;
+		}
 	}
-}
+};
 
 rhit.FbAuthManager = class {
 	constructor() {
@@ -127,7 +124,7 @@ rhit.FbAuthManager = class {
 	get photoUrl() {
 		return this._photoUrl || this._user.photoURL;
 	}
-}
+};
 
 rhit.FbUserManager = class {
 	constructor() {
@@ -184,7 +181,7 @@ rhit.FbUserManager = class {
 		userRef.update({
 			[rhit.FB_KEY_PHOTO_URL]: photoUrl,
 		}).then(() => {
-			console.log("Document successfully updated!");
+			console.log("Photo successfully updated!");
 		}).catch(function (error) {
 			console.error("Error updating document: ", error);
 		});
@@ -195,13 +192,26 @@ rhit.FbUserManager = class {
 		return userRef.update({
 			[rhit.FB_KEY_NAME]: name,
 		}).then(() => {
-			console.log("Document successfully updated!");
+			console.log("Name successfully updated!");
+		}).catch(function (error) {
+			console.error("Error updating document: ", error);
+		});
+	}
+
+	updateTag(tag) {
+		const userRef = this._collectoinRef.doc(rhit.fbAuthManager.uid);
+		return userRef.update({
+			[rhit.FB_KEY_BATTLETAG]: tag,
+		}).then(() => {
+			console.log("BattleTag successfully updated!");
 		}).catch(function (error) {
 			console.error("Error updating document: ", error);
 		});
 	}
 
 	get name() { return this._document.get(rhit.FB_KEY_NAME); }
+
+	get tag() {return this._document.get(rhit.FB_KEY_BATTLETAG); }
 
 	get photoUrl() { return this._document.get(rhit.FB_KEY_PHOTO_URL); }
 };
@@ -213,7 +223,7 @@ rhit.LoginPageController = class {
 		};
 		rhit.fbAuthManager.startFirebaseUI();
 	}
-}
+};
 
 rhit.checkForRedirects = function () {
 	if (document.querySelector("#loginPage") && rhit.fbAuthManager.isSignedIn) {
@@ -222,12 +232,12 @@ rhit.checkForRedirects = function () {
 	if (!document.querySelector("#loginPage") && !rhit.fbAuthManager.isSignedIn) {
 		window.location.href = "/";
 	}
-	if (document.querySelector("#tagPage") && rhit.TagManager.isSetUp) {
-		window.location.href = "/homeScreen.html";
-	}
-	if (document.querySelector("#tagPage") && !rhit.TagManager.isSetUp) {
-		window.location.href = "/";
-	}
+	// if (document.querySelector("#tagPage") && rhit.TagManager.isSetUp) {
+	// 	window.location.href = "/homeScreen.html";
+	// }
+	// if (document.querySelector("#tagPage") && !rhit.TagManager.isSetUp) {
+	// 	window.location.href = "/";
+	// }
 };
 
 rhit.initializePage = function () {
@@ -235,13 +245,13 @@ rhit.initializePage = function () {
 		console.log("You are on the login page.");
 		new rhit.LoginPageController();
 	}
-	if (document.querySelector("#mainPage")) {
+	else if (document.querySelector("#mainPage")) {
 		console.log("You are on the gallery page.");
 		initializeGalleryPage();
 	}
-	if (document.querySelector("#tagPage")) {
+	else if (document.querySelector("#tagPage")) {
 		console.log("You are on the battleTag page.");
-		new rhit.TagManager();
+		new rhit.TagPageController();
 	}
 };
 
@@ -265,7 +275,7 @@ rhit.createUserObjectIfNeeded = function () {
 			resolve(isUserNew);
 		});
 	});
-}
+};
 
 rhit.main = function () {
 	console.log("Ready");

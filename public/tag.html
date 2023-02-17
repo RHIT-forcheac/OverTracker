@@ -11,19 +11,45 @@
 </head>
 
 <body>
-  <div id="tagPage">
+
+  <ul id="navBar" class="nav nav-tabs">
+    <li class="nav-item" style="margin-top: 8px;">
+      <img id="overFiguresLogo" src="./images/overwatchLogo.png" alt="villa logo">
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="./homeScreen.html">OverFigures</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="./gallery.html">Gallery</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="./heroInfo.html">Hero Info</a>
+    </li>
+    <li class="nav-item" style="margin-left: 75%; margin-top: 15px;">
+      <button class="btn bmd-btn-icon dropdown-toggle" type="button" id="lr1" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        <i class="material-icons">more_vert</i>
+      </button>
+      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="lr1">
+        <button id="menuSignOut" class="dropdown-item" type="button" data-toggle="button">
+          <i class="material-icons">logout</i>&nbsp;&nbsp;&nbsp;Sign Out</button>
+      </div>
+    </li>
+  </ul>
+
+  <div id="tagPage" class="container page-container">
 
     <div class="card mx-auto" style="width: 22rem; height: 33rem; margin-top: 120px;">
       <img class="card-img-top" style="border-radius: 15px;" src="./images/overWatchlogo2.png">
       <div class="card-body">
         <h5 class="card-title" style="color: white;">Set up your BattleTag here!</h5>
-        <input type="text" class="form-control" id="inputCaption" style="color: white;">
-        <span class="bmd-help" style="color: white;">Enter your BattleTag</span>
-        <button type="button" class="btn-secondary btn-lg btn-block" style="margin-top: 20px;" id="submitTag">CONFIRM</button>
+        <input type="text" id="inputTag" style="margin-left: 20%;">
+        <button type="button" class="btn-secondary btn-lg btn-block" style="margin-top: 20px;"
+          id="submitTag">CONFIRM</button>
       </div>
     </div>
-    
-  </div> 
+
+  </div>
 
   <script src="scripts/jquery.min.js"></script>
   <script src="scripts/popper.js"></script>
