@@ -39,8 +39,9 @@ rhit.createHeroCard = function(currentHero) {
 
     newButton.onclick = (event) => {
         console.log("Hero Button Clicked");
-        console.log(`Navigating to ../heroPage.html?hero=${currentHero.name}`);
-        //window.location.href = `../heroPage.html?hero=${currentHero.name}`;
+        console.log(`Navigating to ../heroPage.html?hero=${currentHero.key}`);
+        window.location.href = `../stats.html?currentHero=${currentHero.key}`;
+        
     };
 
     const newCard = document.createElement("div");

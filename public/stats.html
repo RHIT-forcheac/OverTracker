@@ -48,90 +48,27 @@
 
     <div class="chartCard">
       <div class="chartBox">
-        <h4 id="hero-type" style="color: white;">Tank</h4>
+        <h4 id="hero-type" style="color: white; text-transform:capitalize;"></h4>
         <div id="hero-pic" class="card mx-auto" style="width: 10rem;">
-          <img id="cardPhoto" class="card-img" src="images/dva.jpg">
-          <h5 id="hero-name" style="text-align: center; color: white;">D.VA</h5>
+          <img id="cardPhoto" class="card-img" src="">
+          <h5 id="hero-name" style="text-align: center; color: white;"></h5>
         </div>
       </div>
-      <div class="chartBox">
-        <h4 id="chart3-title" style="color: white;">Impact</h4>
-        <canvas id="myChart3"></canvas>
-      </div>
       <div class="longChartBox">
-        <ul class="list-group">
+        <ul id="basicStats" class="list-group">
           <li class="list-group-item active">Statistics</li>
-          <li class="list-group-item">Total Kills</li>
-          <li class="list-group-item">Total Assists</li>
-          <li class="list-group-item">Total Deaths</li>
-          <li class="list-group-item">Other things</li>
+          <li id="killsStat" class="list-group-item">Total Kills: </li>
+          <li id="assistsStat" class="list-group-item">Total Assists: </li>
+          <li id="deathsStat" class="list-group-item">Total Deaths: </li>
         </ul>
       </div>
-
-      <script>
-        const chart3 = new Chart(document.getElementById('myChart3'), {
-          type: 'radar',
-          data: {
-            labels: ['Rating', 'ADR', 'KPR', 'DPR', 'KAST'],
-            datasets: [{
-              label: 'Distribution',
-              data: [1, 1, 1, 1, 1],
-              fill: true,
-              backgroundColor: 'rgba(255, 99, 132, 0.2)',
-              hoverBackgroundColor: '##FFFFFF',
-              hoverBorderColor: '#FFFFFF',
-              borderColor: 'rgb(255, 99, 132)',
-              pointBackgroundColor: 'rgb(255, 99, 132)',
-              pointBorderColor: '#fff',
-              pointHoverBackgroundColor: '#FFF',
-              pointHoverBorderColor: 'rgb(255, 99, 132)'
-            }]
-          },
-          options: {
-            plugins: {
-              legend: {
-                labels: {
-                  color: '#FFFFFF'
-                }
-              },
-              responsive: true
-            },
-            elements: {
-              line: {
-                borderWidth: 3
-              }
-            },
-            scales: {
-              r: {
-                ticks: {
-                  color: '#FFFFFF',
-                  backdropColor: '#00000000'
-                },
-                grid: {
-                  color: '#FFFFFF'
-                },
-                angleLines: {
-                  color: '#FFFFFF'
-                },
-                pointLabels: {
-                  color: '#FFFFFF'
-                }
-              }
-            }
-          }
-        });
-      </script>
 
     </div>
 
     <div class="chartCard">
       <div class="chartBox">
         <h4 id="chart1-title" style="color: white;">W/L Ratio</h4>
-        <canvas id="myChart1"></canvas>
-      </div>
-      <div class="chartBox">
-        <h4 id="chart2-title" style="color: white;">K/D Diff</h4>
-        <canvas id="myChart2"></canvas>
+        <canvas id="wlChart"></canvas>
       </div>
       <div class="longChartBox">
         <ul class="list-group">
@@ -142,60 +79,6 @@
           <li class="list-group-item">KAST</li>
         </ul>
       </div>
-
-      <script>
-        const chart1 = new Chart(document.getElementById('myChart1'), {
-          type: 'pie',
-          data: {
-            labels: ['Win', 'Lose'],
-            datasets: [{
-              data: [41, 12],
-              backgroundColor: ['#2f4b7c', '#f95d6a']
-            }]
-          },
-          options: {
-            plugins: {
-              legend: {
-                position: 'bottom',
-                title: {
-                  display: true,
-                },
-                labels: {
-                  color: '#FFFFFF'
-                }
-              },
-              responsive: true
-            }
-          }
-        });
-      </script>
-
-      <script>
-        const chart2 = new Chart(document.getElementById('myChart2'), {
-          type: 'doughnut',
-          data: {
-            labels: ['Kill', 'Death'],
-            datasets: [{
-              data: [319, 241],
-              backgroundColor: ['#003f5c', '#d45087']
-            }]
-          },
-          options: {
-            plugins: {
-              legend: {
-                position: 'bottom',
-                title: {
-                  display: true,
-                },
-                labels: {
-                  color: '#FFFFFF'
-                }
-              },
-              responsive: true
-            }
-          }
-        });
-      </script>
 
     </div>
 
@@ -223,7 +106,7 @@
   <script src="/__/firebase/7.18.0/firebase-auth.js"></script>
   <script src="/__/firebase/7.18.0/firebase-storage.js"></script>
   <script src="/__/firebase/init.js"></script>
-  <script src="scripts/main.js"></script>
+  <script type="module" src="scripts/main.js"></script>
 </body>
 
 </html>

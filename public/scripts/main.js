@@ -10,6 +10,10 @@ import {
 	initializeGalleryPage,
 } from "./heroGallery.js"
 
+import {
+	initializeStatPage,
+} from "./stats.js"
+
 // rhit.getHeroData = async function(){
 // 	const heroesJson = await getHeroNamesAndImages();
 // }
@@ -208,6 +212,10 @@ rhit.initializePage = function () {
 	if (document.querySelector("#mainPage")) {
 		console.log("You are on the gallery page.");
 		initializeGalleryPage();
+	}
+	if (document.querySelector("#statPage")) {
+		console.log("You are on the stat page.");
+		initializeStatPage();
 	}
 };
 
