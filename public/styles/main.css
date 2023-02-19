@@ -11,10 +11,6 @@ body {
     margin-top: 15px;
 }
 
-.card {
-    margin: 10px 0;
-}
-
 #listPage .card-subtitle {
     white-space: nowrap;
     overflow: hidden;
