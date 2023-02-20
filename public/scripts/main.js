@@ -275,12 +275,14 @@ rhit.initializePage = async function () {
 		new rhit.LoginPageController();
 	}
 	if (document.querySelector("#mainPage")) {
+		new rhit.NavBarController();
 		console.log("You are on the gallery page.");
 		const urlParams = new URLSearchParams(window.location.search);
 		let playerTag = urlParams.get("playerTag");
 		initializeGalleryPage(playerTag);
 	}
 	if (document.querySelector("#statPage")) {
+		new rhit.NavBarController();
 		console.log("You are on the stat page.");
 		const urlParams = new URLSearchParams(window.location.search);
 		let playerTag = urlParams.get("playerTag");
@@ -291,6 +293,7 @@ rhit.initializePage = async function () {
 		new rhit.TagPageController();
 	}
 	if (document.querySelector("#homePage")) {
+		new rhit.NavBarController();
 		console.log("You are on the home page.");
 		const urlParams = new URLSearchParams(window.location.search);
 		let playerTag = urlParams.get("playerTag");
@@ -333,7 +336,6 @@ rhit.main = function () {
 			}
 			rhit.checkForRedirects();
 			new rhit.SideNavController();
-			new rhit.NavBarController();
 			rhit.initializePage();
 		});
 	});
