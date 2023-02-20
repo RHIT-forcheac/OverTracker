@@ -254,6 +254,44 @@ rhit.LoginPageController = class {
 	}
 };
 
+rhit.ProfilePageController = class {
+	constructor() {
+		console.log("Create Profile Page controller");
+
+		document.querySelector("#submitName").onclick = (event) => {
+			const name = document.querySelector("#inputName").value;
+			rhit.fbUserManager.updateName(name).then(() => {
+				window.location.href = "/homeScreen.html";
+			});
+		};
+		document.querySelector("#submitPhoto").onclick = (event) => {
+			document.querySelector("#inputFile").click();
+		};
+		document.querySelector("#inputFile").addEventListener("change", (event) => {
+			console.log("You selected a file!");
+			const file = event.target.files[0];
+			const storageRef = firebase.storage().ref().child(rhit.fbAuthManager.uid);
+			storageRef.put(file).then((UploadTaskSnapshot) => {
+				console.log("The file has been uploaded!");
+				storageRef.getDownloadURL().then((downloadUrl) => {
+					rhit.fbUserManager.updatePhotoUrl(downloadUrl);
+				});
+			});
+		});
+
+		rhit.fbUserManager.beginListening(rhit.fbAuthManager.uid, this.updateView.bind(this));
+
+	}
+	updateView() {
+		if (rhit.fbUserManager.name) {
+			document.querySelector("#inputName").value = rhit.fbUserManager.name;
+		}
+		if (rhit.fbUserManager.photoUrl) {
+			document.querySelector("#profilePhoto").src = rhit.fbUserManager.photoUrl;
+		}
+	}
+};
+
 rhit.checkForRedirects = function () {
 	if (document.querySelector("#loginPage") && rhit.fbAuthManager.isSignedIn) {
 		window.location.href = "/tag.html";
