@@ -5,7 +5,6 @@ rhit.FB_COLLECTION_USERS = "Users";
 rhit.FB_KEY_BATTLETAG = "battleTag";
 rhit.FB_KEY_NAME = "name";
 rhit.FB_KEY_PHOTO_URL = "photoUrl";
-
 rhit.playerTag;
 
 import {
@@ -336,6 +335,10 @@ rhit.initializePage = async function () {
 		const urlParams = new URLSearchParams(window.location.search);
 		let playerTag = urlParams.get("playerTag");
 		initializeHomePage(playerTag);
+	}
+	if (document.querySelector("#profilePage")) {
+		console.log("You are on the profile page.");
+		new rhit.ProfilePageController();
 	}
 };
 
