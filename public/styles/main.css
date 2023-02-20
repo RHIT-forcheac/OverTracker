@@ -91,6 +91,7 @@ li {
 
 .chartBox {
     width: 250px;
+    height: 300px;
     padding: 20px;
     margin: 20px;
     border-radius: 20px;
@@ -153,6 +154,8 @@ li {
     white-space: nowrap;
     padding-left: 0;
     padding-right: 0;
+    margin-left: 0;
+    margin-left: 0;
 }
 
 .card {
@@ -160,11 +163,14 @@ li {
     height: 130px;
     background-color: #00000050;
     border-radius: 15px;
-    border: solid 3px;
 }
 
 .cardButton {
     background-color: #00000050;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
 }
 
 #navBar {
