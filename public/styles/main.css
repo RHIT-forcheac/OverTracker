@@ -240,3 +240,13 @@ li {
     background: #0ee2db7f;
     text-align: center;
 }
+
+#profBox {
+    padding: 20px;
+    margin: 50px;
+    margin-top: 150px;
+    margin-left: 20px;
+    border-radius: 20px;
+    border: solid 3px;
+    background: #00000050;
+}

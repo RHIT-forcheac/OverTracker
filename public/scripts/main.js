@@ -6,10 +6,9 @@ rhit.FB_KEY_BATTLETAG = "battleTag";
 rhit.FB_KEY_NAME = "name";
 rhit.FB_KEY_PHOTO_URL = "photoUrl";
 
-// import {
-// 	initializeGalleryPage,
-// } from "./heroGallery.js"
-// const {initializeGalleryPage} = require('./heroGallery.js');
+import {
+	initializeGalleryPage,
+} from "./heroGallery.js"
 
 // rhit.getHeroData = async function(){
 // 	const heroesJson = await getHeroNamesAndImages();
@@ -17,7 +16,7 @@ rhit.FB_KEY_PHOTO_URL = "photoUrl";
 
 rhit.SideNavController = class {
 	constructor() {
-		const menuProfilePageItem = document.querySelector("#menuGoToProfilePage");
+		const menuProfilePageItem = document.querySelector("#menuProfile");
 		if (menuProfilePageItem) {
 			menuProfilePageItem.addEventListener("click", (event) => {
 				window.location.href = "/profile.html";
@@ -46,7 +45,7 @@ rhit.TagPageController = class {
 	}
 
 	updateView() {
-		if(rhit.fbUserManager.tag) {
+		if (rhit.fbUserManager.tag) {
 			document.querySelector("#inputTag").value = rhit.fbUserManager.tag;
 		}
 	}
@@ -57,6 +56,7 @@ rhit.FbAuthManager = class {
 		this._user = null;
 		this._name = "";
 		this._photoUrl = "";
+		this._tag = "";
 	}
 
 	beginListening(changeListener) {
@@ -124,6 +124,10 @@ rhit.FbAuthManager = class {
 	get photoUrl() {
 		return this._photoUrl || this._user.photoURL;
 	}
+
+	get tag(){
+		return this._tag || this._user.tag;
+	}
 };
 
 rhit.FbUserManager = class {
@@ -132,7 +136,7 @@ rhit.FbUserManager = class {
 		this._document = null;
 	}
 
-	addNewUserMaybe(uid, name, photoUrl) {
+	addNewUserMaybe(uid, name, photoUrl, tag) {
 		const userRef = this._collectoinRef.doc(uid);
 		return userRef.get().then((doc) => {
 			if (doc.exists) {
@@ -143,6 +147,7 @@ rhit.FbUserManager = class {
 				return userRef.set({
 					[rhit.FB_KEY_NAME]: name,
 					[rhit.FB_KEY_PHOTO_URL]: photoUrl,
+					[rhit.FB_KEY_BATTLETAG]: tag,
 				}).then(function () {
 					console.log("Successfully Written!");
 					return true;
@@ -158,6 +163,7 @@ rhit.FbUserManager = class {
 	beginListening(uid, changeListener) {
 		const userRef = this._collectoinRef.doc(uid);
 		this._unsubscribe = userRef.onSnapshot((doc) => {
+			console.log(doc.data());
 			if (doc.exists) {
 				console.log("Document data:", doc.data());
 				this._document = doc;
@@ -211,7 +217,7 @@ rhit.FbUserManager = class {
 
 	get name() { return this._document.get(rhit.FB_KEY_NAME); }
 
-	get tag() {return this._document.get(rhit.FB_KEY_BATTLETAG); }
+	get tag() { return this._document.get(rhit.FB_KEY_BATTLETAG); }
 
 	get photoUrl() { return this._document.get(rhit.FB_KEY_PHOTO_URL); }
 };
@@ -225,19 +231,62 @@ rhit.LoginPageController = class {
 	}
 };
 
+rhit.ProfilePageController = class {
+	constructor() {
+		console.log("Create Profile Page controller");
+
+		document.querySelector("#submitName").onclick = (event) => {
+			const name = document.querySelector("#inputName").value;
+			rhit.fbUserManager.updateName(name).then(() => {
+				window.location.href = "/homeScreen.html";
+			});
+		};
+		document.querySelector("#submitPhoto").onclick = (event) => {
+			document.querySelector("#inputFile").click();
+		};
+		document.querySelector("#inputFile").addEventListener("change", (event) => {
+			console.log("You selected a file!");
+			const file = event.target.files[0];
+			const storageRef = firebase.storage().ref().child(rhit.fbAuthManager.uid);
+			storageRef.put(file).then((UploadTaskSnapshot) => {
+				console.log("The file has been uploaded!");
+				storageRef.getDownloadURL().then((downloadUrl) => {
+					rhit.fbUserManager.updatePhotoUrl(downloadUrl);
+				});
+			});
+		});
+
+		rhit.fbUserManager.beginListening(rhit.fbAuthManager.uid, this.updateView.bind(this));
+
+	}
+	updateView() {
+		if (rhit.fbUserManager.name) {
+			document.querySelector("#inputName").value = rhit.fbUserManager.name;
+		}
+		if (rhit.fbUserManager.photoUrl) {
+			document.querySelector("#profilePhoto").src = rhit.fbUserManager.photoUrl;
+		}
+	}
+};
+
 rhit.checkForRedirects = function () {
+	if (document.querySelector("#tagPage")) {
+		const ref = rhit.fbUserManager._collectoinRef.doc(rhit.fbAuthManager.uid);
+		const a = ref.onSnapshot((doc) => {
+			if (doc.exists) {
+				if (doc.get(rhit.FB_KEY_BATTLETAG) != null) {
+					window.location.href = "/homeScreen.html";
+				}
+			}
+		});
+	}
 	if (document.querySelector("#loginPage") && rhit.fbAuthManager.isSignedIn) {
 		window.location.href = "/tag.html";
 	}
 	if (!document.querySelector("#loginPage") && !rhit.fbAuthManager.isSignedIn) {
 		window.location.href = "/";
 	}
-	// if (document.querySelector("#tagPage") && rhit.TagManager.isSetUp) {
-	// 	window.location.href = "/homeScreen.html";
-	// }
-	// if (document.querySelector("#tagPage") && !rhit.TagManager.isSetUp) {
-	// 	window.location.href = "/";
-	// }
+
 };
 
 rhit.initializePage = function () {
@@ -245,13 +294,17 @@ rhit.initializePage = function () {
 		console.log("You are on the login page.");
 		new rhit.LoginPageController();
 	}
-	else if (document.querySelector("#mainPage")) {
+	if (document.querySelector("#mainPage")) {
 		console.log("You are on the gallery page.");
 		initializeGalleryPage();
 	}
-	else if (document.querySelector("#tagPage")) {
+	if (document.querySelector("#tagPage")) {
 		console.log("You are on the battleTag page.");
 		new rhit.TagPageController();
+	}
+	if (document.querySelector("#profilePage")) {
+		console.log("You are on the profile page.");
+		new rhit.ProfilePageController();
 	}
 };
 
@@ -271,10 +324,21 @@ rhit.createUserObjectIfNeeded = function () {
 			rhit.fbAuthManager.uid,
 			rhit.fbAuthManager.name,
 			rhit.fbAuthManager.photoUrl,
+			rhit.fbAuthManager.tag,
 		).then((isUserNew) => {
 			resolve(isUserNew);
 		});
 	});
+};
+
+rhit.getTag = function () {
+	const ref = firebase.firestore().collection(rhit.FB_COLLECTION_USERS).doc(rhit.fbAuthManager.uid);
+	const a = ref.onSnapshot((doc) => {
+		if (doc.exists) {
+			return doc.get(rhit.FB_KEY_BATTLETAG);
+		}
+	});
+	return null;
 };
 
 rhit.main = function () {

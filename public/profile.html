@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
   <link rel="stylesheet" href="styles/bootstrap-material-design.min.css">
   <link rel="stylesheet" href="styles/main.css">
-  <title>BattleTag Setup</title>
+  <title>My Profile</title>
 </head>
 
 <body>
@@ -39,17 +39,31 @@
     </li>
   </ul>
 
-  <div id="tagPage" class="container page-container">
+  <div id="profilePage" class="container page-container" style="width: 18rem;">
 
-    <div class="card mx-auto" style="width: 22rem; height: 33rem; margin-top: 120px;">
-      <img class="card-img-top" style="border-radius: 15px;" src="./images/overWatchlogo2.png">
-      <div class="card-body">
-        <h5 class="card-title" style="color: white;">Set up your BattleTag here!</h5>
-        <input type="text" id="inputTag" style="margin-left: 20%;">
-        <button type="button" class="btn-secondary btn-lg btn-block" style="margin-top: 20px;"
-          id="submitTag">CONFIRM</button>
+    <div id="profileContainer">
+      <div id="profBox" class= "mx-auto">
+        <div class="mx-auto" style="width: 150px; margin-top: 20px;">
+          <img id="profilePhoto" class="card-img" src="images/overWatchlogo2.png">
+        </div>
+
+        <button type="button" id="submitPhoto" class="btn-secondary" style="margin-top: 20px; margin-left: 12%;">Update
+          Profile Photo</button>
+        <input id="inputFile" type="file" hidden>
+        <div class="card-body">
+          <div class="form-group" style="margin-bottom: 0;">
+            <label for="inputName" class="">Name</label>
+            <input type="email" class="form-control" id="inputName" placeholder="Your display name" style="color: white;">
+          </div>
+        </div>
+
+        <div class="text-right">
+          <button type="button" id="submitName" class="btn-secondary btn-lg btn-block">Done</button>
+        </div>
       </div>
     </div>
+
+
 
   </div>
 
