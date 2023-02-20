@@ -14,9 +14,9 @@ import {
 	initializeStatPage,
 } from "./stats.js"
 
-// rhit.getHeroData = async function(){
-// 	const heroesJson = await getHeroNamesAndImages();
-// }
+import {
+	initializeHomePage
+} from "./home.js"
 
 rhit.SideNavController = class {
 	constructor() {
@@ -49,7 +49,7 @@ rhit.TagPageController = class {
 	}
 
 	updateView() {
-		if(rhit.fbUserManager.tag) {
+		if (rhit.fbUserManager.tag) {
 			document.querySelector("#inputTag").value = rhit.fbUserManager.tag;
 		}
 	}
@@ -212,11 +212,17 @@ rhit.FbUserManager = class {
 		});
 	}
 
-	get name() { return this._document.get(rhit.FB_KEY_NAME); }
+	get name() {
+		return this._document.get(rhit.FB_KEY_NAME);
+	}
 
-	get tag() {return this._document.get(rhit.FB_KEY_BATTLETAG); }
+	get tag() {
+		return this._document.get(rhit.FB_KEY_BATTLETAG);
+	}
 
-	get photoUrl() { return this._document.get(rhit.FB_KEY_PHOTO_URL); }
+	get photoUrl() {
+		return this._document.get(rhit.FB_KEY_PHOTO_URL);
+	}
 };
 
 rhit.LoginPageController = class {
@@ -259,6 +265,10 @@ rhit.initializePage = function () {
 	if (document.querySelector("#tagPage")) {
 		console.log("You are on the battleTag page.");
 		new rhit.TagPageController();
+	}
+	if (document.querySelector("#homePage")) {
+		console.log("You are on the home page.");
+		initializeHomePage();
 	}
 };
 

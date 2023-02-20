@@ -41,10 +41,11 @@
 
         <div id="profileContainer">
             <div class="profileBox">
-                <h4 id="hero-type" style="color: white;">user_name</h4>
+                <div><h4 id="playerName" style="color: white;"></h4>
+                    <img id="playerEndorsement" src=""></div>
                 <div id="hero-pic" class="card mx-auto" style="width: 10rem;">
-                    <img id="cardPhoto" class="card-img" src="images/dva.jpg">
-                    <h5 id="hero-name" style="text-align: center; color: white;">hero_name</h5>
+                    <img id="playerPortrait" class="card-img" src="">
+                    <h5 id="playerTitle" style="color: white;"></h5>
                 </div>
             </div>
         </div>
@@ -94,18 +95,17 @@
         <div id="hourContainer">
             <div id="hourCount" class="mx-auto" style="color: white;">
                 <h5 style="margin-top: 90px;">TIME PLAYED</h5>
-                <h4>0000 HRS</h4>
+                <h4 id="timePlayedTotal"></h4>
             </div>
         </div>
 
         <div id="overviewContainer">
             <div class="overviewBox" class="mx-auto">
                 <ul class="list-group">
-                    <li class="list-group-item active">ROLE <span style="margin-left: 189px;">TIME PLAYED</span> <span style="margin-left: 189px;">GAMES WON</span></li>
-                    <li class="list-group-item">TANK<span style="margin-left: 220px;">000</span><span style="margin-left: 260px;">000</span></li>
-                    <li class="list-group-item">DAMAGE<span style="margin-left: 197px;">000</span><span style="margin-left: 260px;">000</span></li>
-                    <li class="list-group-item">SUPPORT<span style="margin-left: 193px;">000</span><span style="margin-left: 260px;">000</span></li>
-                    <li class="list-group-item">ALL<span style="margin-left: 236px;">000</span><span style="margin-left: 260px;">000</span></li>
+                    <li class="list-group-item active">ROLE <span style="margin-left: 189px;">TIME PLAYED</span> <span style="margin-left: 189px;">WIN %</span></li>
+                    <li class="list-group-item">TANK<span id="timePlayedTank" style="margin-left: 220px;"></span><span id="tankPerc" style="margin-left: 200px;"></span></li>
+                    <li class="list-group-item">DAMAGE<span id="timePlayedDPS" style="margin-left: 197px;"></span><span id="dpsPerc" style="margin-left: 200px;"></span></li>
+                    <li class="list-group-item">SUPPORT<span id="timePlayedSupp" style="margin-left: 193px;"></span><span id="suppPerc" style="margin-left: 200px;"></span></li>
                 </ul>
             </div>
         </div>
