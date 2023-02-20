@@ -43,7 +43,12 @@
 
   <div id="statPage" class="container page-container">
 
-    <button id="back-to-home" class="btn btn-primary" style="color: white;"><i
+    <div id="heroNullAlert" class="alert alert-info" role="alert">
+      <h4 class="alert-heading">No Hero Data Found</h4>
+      <p>The issue is likely that you just havn't played this hero in the current competitive season yet and thus no data can be shown yet.</p>
+    </div>
+
+    <button id="back-to-home" class="btn btn-primary" onclick="window.location.href = './gallery.html'" style="color: white;"><i
         class="material-icons">arrow_back</i>Back</button>
 
     <div class="chartCard">

@@ -59,7 +59,12 @@ rhit.populateHeroPage = async function() {
   //TODO: add handler for null meaning hero has not been played
     rhit.setHeroInfo(rhit.currentHero);
     const heroStatsJson = await getHeroStats("Onslaught-12333", rhit.currentHero, "competitive");
-    rhit.setHeroStats(heroStatsJson[rhit.currentHero]);
+    if (heroStatsJson == null){
+      document.querySelector("#heroNullAlert").display = "inline-block";
+    } else{
+      document.querySelector("#heroNullAlert").display = "none";
+      rhit.setHeroStats(heroStatsJson[rhit.currentHero]);
+    }
 }
 
 export function initializeStatPage() {
