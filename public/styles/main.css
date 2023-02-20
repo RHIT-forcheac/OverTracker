@@ -43,8 +43,7 @@ body {
     margin-right: 0.75rem;
 }
 
-#menuEdit,
-#menuDelete {
+#menuEdit {
     display: none;
 }
 
@@ -267,4 +266,13 @@ li {
     border: solid 5px;
     background: #0ee2db7f;
     text-align: center;
+}
+
+#profBox {
+    padding: 20px;
+    margin: 50px;
+    margin-left: 20px;
+    border-radius: 20px;
+    border: solid 3px;
+    background: #00000050;
 }

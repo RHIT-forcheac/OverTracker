@@ -37,7 +37,7 @@ rhit.NavBarController = class {
 
 rhit.SideNavController = class {
 	constructor() {
-		const menuProfilePageItem = document.querySelector("#menuGoToProfilePage");
+		const menuProfilePageItem = document.querySelector("#menuProfile");
 		if (menuProfilePageItem) {
 			menuProfilePageItem.addEventListener("click", (event) => {
 				window.location.href = "/profile.html";
@@ -231,6 +231,17 @@ rhit.FbUserManager = class {
 		});
 	}
 
+	deleteUser() {
+		const userRef = this._collectoinRef.doc(rhit.fbAuthManager.uid);
+		return userRef.update({
+			[rhit.FB_KEY_BATTLETAG]: firebase.firestore.FieldValue.delete(),
+		}).then(() => {
+			console.log("BattleTag successfully deleted!");
+		}).catch(function (error) {
+			console.error("Error deleting document: ", error);
+		});
+	}
+
 	get name() {
 		return this._document.get(rhit.FB_KEY_NAME);
 	}
@@ -257,10 +268,15 @@ rhit.ProfilePageController = class {
 	constructor() {
 		console.log("Create Profile Page controller");
 
+		document.querySelector("#menuDelete").onclick = (event) => {
+			rhit.fbUserManager.deleteUser().then(() => {
+				window.location.href = `/index.html`;
+			});
+		};
 		document.querySelector("#submitName").onclick = (event) => {
 			const name = document.querySelector("#inputName").value;
 			rhit.fbUserManager.updateName(name).then(() => {
-				window.location.href = "/homeScreen.html";
+				window.location.href = `/homeScreen.html?playerTag=${rhit.fbUserManager.tag}`;
 			});
 		};
 		document.querySelector("#submitPhoto").onclick = (event) => {
@@ -337,6 +353,7 @@ rhit.initializePage = async function () {
 		initializeHomePage(playerTag);
 	}
 	if (document.querySelector("#profilePage")) {
+		new rhit.NavBarController();
 		console.log("You are on the profile page.");
 		new rhit.ProfilePageController();
 	}
