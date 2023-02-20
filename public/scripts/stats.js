@@ -7,6 +7,7 @@ import {
 
 const urlParams = new URLSearchParams(window.location.search);
 rhit.currentHero = urlParams.get("currentHero");
+rhit.playerTag = null;
 
 rhit.setHeroInfo = async function(heroName){
     const heroDataJson = await getHeroNameAndImage(rhit.currentHero);
@@ -56,17 +57,21 @@ rhit.setHeroStats = async function(heroStatsJson) {
 }
 
 rhit.populateHeroPage = async function() {
-  //TODO: add handler for null meaning hero has not been played
     rhit.setHeroInfo(rhit.currentHero);
-    const heroStatsJson = await getHeroStats("Onslaught-12333", rhit.currentHero, "competitive");
+    const heroStatsJson = await getHeroStats(rhit.playerTag, rhit.currentHero, "competitive");
     if (heroStatsJson == null){
+      console.log("data is null?");
       document.querySelector("#heroNullAlert").display = "inline-block";
     } else{
-      document.querySelector("#heroNullAlert").display = "none";
+      console.log("set display to none");
+      document.querySelector("#heroNullAlert").style.display = "none";
+      console.log(document.querySelector("#heroNullAlert").display);
       rhit.setHeroStats(heroStatsJson[rhit.currentHero]);
     }
 }
 
-export function initializeStatPage() {
+export function initializeStatPage(playerTag) {
+    rhit.playerTag = playerTag;
+    console.log(playerTag);
     rhit.populateHeroPage();
 }

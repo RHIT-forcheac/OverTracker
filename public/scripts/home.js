@@ -5,10 +5,10 @@ import {
     getPlayerStatsSummary,
 } from "./apiFunctions.js"
 
-rhit.currentPlayer = "Onslaught-12333";
+rhit.playerTag;
 
 rhit.setPlayerInfo = async function(playerSumJson){
-    document.querySelector("#playerName").innerHTML = rhit.currentPlayer;
+    document.querySelector("#playerName").innerHTML = rhit.playerTag;
     document.querySelector("#playerPortrait").src = playerSumJson.avatar;
     document.querySelector("#playerEndorsement").src = playerSumJson.endorsement.frame;
     document.querySelector("#playerTitle").innerHTML = playerSumJson.title;
@@ -31,12 +31,13 @@ rhit.setTimePlayedAndWinPerc = async function(playerStatsSumJson) {
 }
 
 rhit.populateHomePage = async function() {
-  const playerSumJson = await getPlayerSummary(rhit.currentPlayer);
+  const playerSumJson = await getPlayerSummary(rhit.playerTag);
   rhit.setPlayerInfo(playerSumJson);
-  const playerStatsSumJson = await getPlayerStatsSummary(rhit.currentPlayer);
+  const playerStatsSumJson = await getPlayerStatsSummary(rhit.playerTag);
   rhit.setTimePlayedAndWinPerc(playerStatsSumJson);
 }
 
-export function initializeHomePage() {
+export function initializeHomePage(playerTag) {
+  rhit.playerTag = playerTag;
   rhit.populateHomePage();
 }

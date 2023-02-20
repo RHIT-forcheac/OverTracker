@@ -6,6 +6,8 @@ rhit.FB_KEY_BATTLETAG = "battleTag";
 rhit.FB_KEY_NAME = "name";
 rhit.FB_KEY_PHOTO_URL = "photoUrl";
 
+rhit.playerTag;
+
 import {
 	initializeGalleryPage,
 } from "./heroGallery.js"
@@ -17,6 +19,22 @@ import {
 import {
 	initializeHomePage
 } from "./home.js"
+
+rhit.NavBarController = class {
+	constructor() {
+		document.querySelector("#homeScreenBtn").onclick = (event) => {
+			const urlParams = new URLSearchParams(window.location.search);
+			let playerTag = urlParams.get("playerTag");
+			window.location.href = `./../homeScreen.html?playerTag=${playerTag}`
+		};
+		document.querySelector("#galleryScreenBtn").onclick = (event) => {
+			console.log("click");
+			const urlParams = new URLSearchParams(window.location.search);
+			let playerTag = urlParams.get("playerTag");
+			window.location.href = `./../gallery.html?playerTag=${playerTag}`
+		};
+	}
+};
 
 rhit.SideNavController = class {
 	constructor() {
@@ -41,8 +59,9 @@ rhit.TagPageController = class {
 		document.querySelector("#submitTag").onclick = (event) => {
 			console.log("button working!");
 			const tag = document.querySelector("#inputTag").value;
+			rhit.tag = tag;
 			rhit.fbUserManager.updateTag(tag).then(() => {
-				window.location.href = "/homeScreen.html";
+				window.location.href = `/homeScreen.html?playerTag=${rhit.fbUserManager.tag}`;
 			});
 		}
 		rhit.fbUserManager.beginListening(rhit.fbAuthManager.uid, this.updateView.bind(this));
@@ -163,6 +182,7 @@ rhit.FbUserManager = class {
 		this._unsubscribe = userRef.onSnapshot((doc) => {
 			if (doc.exists) {
 				console.log("Document data:", doc.data());
+				console.log(doc);
 				this._document = doc;
 				changeListener();
 			} else {
@@ -249,18 +269,22 @@ rhit.checkForRedirects = function () {
 	// }
 };
 
-rhit.initializePage = function () {
+rhit.initializePage = async function () {
 	if (document.querySelector("#loginPage")) {
 		console.log("You are on the login page.");
 		new rhit.LoginPageController();
 	}
 	if (document.querySelector("#mainPage")) {
 		console.log("You are on the gallery page.");
-		initializeGalleryPage();
+		const urlParams = new URLSearchParams(window.location.search);
+		let playerTag = urlParams.get("playerTag");
+		initializeGalleryPage(playerTag);
 	}
 	if (document.querySelector("#statPage")) {
 		console.log("You are on the stat page.");
-		initializeStatPage();
+		const urlParams = new URLSearchParams(window.location.search);
+		let playerTag = urlParams.get("playerTag");
+		initializeStatPage(playerTag);
 	}
 	if (document.querySelector("#tagPage")) {
 		console.log("You are on the battleTag page.");
@@ -268,7 +292,9 @@ rhit.initializePage = function () {
 	}
 	if (document.querySelector("#homePage")) {
 		console.log("You are on the home page.");
-		initializeHomePage();
+		const urlParams = new URLSearchParams(window.location.search);
+		let playerTag = urlParams.get("playerTag");
+		initializeHomePage(playerTag);
 	}
 };
 
@@ -307,11 +333,10 @@ rhit.main = function () {
 			}
 			rhit.checkForRedirects();
 			new rhit.SideNavController();
+			new rhit.NavBarController();
 			rhit.initializePage();
 		});
 	});
 
-	//this.getHeroData();
 };
-//console.log("js working");
 rhit.main();

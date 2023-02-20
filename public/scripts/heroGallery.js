@@ -4,6 +4,8 @@ import {
 	getHeroNamesAndImages,
 } from "./apiFunctions.js"
 
+rhit.playerTag;
+
 rhit.getHeroData = async function(){
 	const heroesJson = await getHeroNamesAndImages();
     return heroesJson;
@@ -40,7 +42,7 @@ rhit.createHeroCard = function(currentHero) {
     newButton.onclick = (event) => {
         console.log("Hero Button Clicked");
         console.log(`Navigating to ../heroPage.html?hero=${currentHero.key}`);
-        window.location.href = `../stats.html?currentHero=${currentHero.key}`;
+        window.location.href = `../stats.html?currentHero=${currentHero.key}&playerTag=${rhit.playerTag}`;
         
     };
 
@@ -97,6 +99,7 @@ rhit.populateHeroGallery = async function() {
     rhit.addHeroesToSection("support", heroesByRole[2]);
 }
 
-export function initializeGalleryPage() {
+export function initializeGalleryPage(playerTag) {
+    rhit.playerTag = playerTag;
     rhit.populateHeroGallery();
 }

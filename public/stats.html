@@ -17,25 +17,21 @@
 
   <ul id="navBar" class="nav nav-tabs">
     <li class="nav-item" style="margin-top: 8px;">
-      <img id="overFiguresLogo" src="./images/overwatchLogo.png" alt="villa logo">
+      <img id="overFiguresLogo" src="./images/overwatchLogo.png" alt="OverFiguresLogo logo">
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="./homeScreen.html">OverFigures</a>
+      <button id="homeScreenBtn" type="button" class="nav-buttons">OverFigures</button>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="./gallery.html">Gallery</a>
+      <button id="galleryScreenBtn" type="button" class="nav-buttons">Gallery</button>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" href="./heroInfo.html">Hero Info</a>
-    </li>
-    <li class="nav-item" style="margin-left: 73%; margin-top: 15px;">
+    <li class="nav-item" style="margin-left: 75%; margin-top: 15px;">
       <button class="btn bmd-btn-icon dropdown-toggle" type="button" id="lr1" data-toggle="dropdown"
         aria-haspopup="true" aria-expanded="false">
         <i class="material-icons">more_vert</i>
       </button>
       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="lr1">
-        <button id="menuSignOut" class="dropdown-item" type="button" data-toggle="button"
-          data-target="#deleteQuoteDialog">
+        <button id="menuSignOut" class="dropdown-item" type="button" data-toggle="button">
           <i class="material-icons">logout</i>&nbsp;&nbsp;&nbsp;Sign Out</button>
       </div>
     </li>
@@ -45,11 +41,12 @@
 
     <div id="heroNullAlert" class="alert alert-info" role="alert">
       <h4 class="alert-heading">No Hero Data Found</h4>
-      <p>The issue is likely that you just havn't played this hero in the current competitive season yet and thus no data can be shown yet.</p>
+      <p>The issue is likely that you just havn't played this hero in the current competitive season yet and thus no
+        data can be shown yet.</p>
     </div>
 
-    <button id="back-to-home" class="btn btn-primary" onclick="window.location.href = './gallery.html'" style="color: white;"><i
-        class="material-icons">arrow_back</i>Back</button>
+    <button id="back-to-home" class="btn btn-primary" onclick="window.location.href = './gallery.html'"
+      style="color: white;"><i class="material-icons">arrow_back</i>Back</button>
 
     <div class="chartCard">
       <div class="chartBox">
@@ -58,10 +55,6 @@
           <img id="cardPhoto" class="card-img" src="">
           <h5 id="hero-name" style="text-align: center; color: white;"></h5>
         </div>
-      </div>
-      <div class="chartBox">
-        <h4 id="chart1-title" style="color: white;">W/L Ratio</h4>
-        <canvas id="wlChart"></canvas>
       </div>
     </div>
 
@@ -92,7 +85,9 @@
   <script src="scripts/jquery.min.js"></script>
   <script src="scripts/popper.js"></script>
   <script src="scripts/bootstrap-material-design.js"></script>
-  <script>$("body").bootstrapMaterialDesign();</script>
+  <script>
+    $("body").bootstrapMaterialDesign();
+  </script>
   <script src="/__/firebase/7.18.0/firebase-app.js"></script>
   <script src="/__/firebase/7.18.0/firebase-analytics.js"></script>
   <script src="/__/firebase/7.18.0/firebase-firestore.js"></script>
