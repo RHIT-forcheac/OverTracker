@@ -6,10 +6,9 @@ rhit.FB_KEY_BATTLETAG = "battleTag";
 rhit.FB_KEY_NAME = "name";
 rhit.FB_KEY_PHOTO_URL = "photoUrl";
 
-// import {
-// 	initializeGalleryPage,
-// } from "./heroGallery.js"
-// const {initializeGalleryPage} = require('./heroGallery.js');
+import {
+	initializeGalleryPage,
+} from "./heroGallery.js"
 
 import {
 	initializeStatPage,

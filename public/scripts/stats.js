@@ -5,67 +5,61 @@ import {
     getHeroNameAndImage,
 } from "./apiFunctions.js"
 
-const chart = window.chart;
-
 const urlParams = new URLSearchParams(window.location.search);
 rhit.currentHero = urlParams.get("currentHero");
 
 rhit.setHeroInfo = async function(heroName){
     const heroDataJson = await getHeroNameAndImage(rhit.currentHero);
-    //console.log(heroDataJson.portrait);
     document.querySelector("#hero-type").innerHTML = heroDataJson.role;
     document.querySelector("#cardPhoto").src = heroDataJson.portrait;
     document.querySelector("#hero-name").innerHTML = heroDataJson.name;
-    //console.log(heroDataJson);
 }
 
-// rhit.createHeroStatsChart() = async function() {
-//     document.querySelector("#killsStat").innerHTML += 
-// }
-
 rhit.setHeroStats = async function(heroStatsJson) {
-    console.log(heroStatsJson);
-    console.log(heroStatsJson[3].stats[1].value);
-    document.querySelector("#assistsStat").innerHTML += heroStatsJson[5].stats[4].value;
-    document.querySelector("#deathsStat").innerHTML += heroStatsJson[4].stats[0].value;
-    let gamesPlayed = heroStatsJson[3].stats[1].value
-    let gamesLost = heroStatsJson[3].stats[2].value
-    let gamesWon = gamesPlayed - gamesLost;
-    const ctx = document.getElementById('#wlChart');
-    new Chart(ctx, {
-        type: 'pie',
-        data: {
-          labels: ['Win', 'Lose'],
-          datasets: [{
-            data: [gamesWon, gamesLost],
-            backgroundColor: ['#2f4b7c', '#f95d6a']
-          }]
-        },
-        options: {
-          plugins: {
-            legend: {
-              position: 'bottom',
-              title: {
-                display: true,
-              },
-              labels: {
-                color: '#FFFFFF'
-              }
-            },
-            responsive: true
-          }
-        }
-      });
-    document.querySelector("#wlChart").innerHTML = wlChart;
+
+    //General Hero Stats
+    let heroGeneralStats; // = heroStatsJson[4].stats;
+    for (let i = 0; i < heroStatsJson.length; i++) {
+      if (heroStatsJson[i].category == 'combat') {
+        heroGeneralStats = heroStatsJson[i].stats;
+      }
+    }
+    let heroGeneralStatsList = document.querySelector("#basicStats");
+    let heroGeneralTitle = document.createElement("li");
+    heroGeneralTitle.className = "list-group-item active";
+    heroGeneralTitle.appendChild(document.createTextNode(`General Stats`));
+    heroGeneralStatsList.appendChild(heroGeneralTitle);
+    for (let i = 0; i < heroGeneralStats.length; i++) {
+      let statName = heroGeneralStats[i].label;
+      let statValue = heroGeneralStats[i].value;
+      let heroGenStat = document.createElement("li");
+      heroGenStat.className = "list-group-item";
+      heroGenStat.appendChild(document.createTextNode(`${statName}: ${statValue}`));
+      heroGeneralStatsList.appendChild(heroGenStat);
+    }
+
+    //Specific heroStats
+    const heroSpecificStats = heroStatsJson[0].stats;
+    let heroSpecificStatsList = document.querySelector("#specificStatsList");
+    let heroSpecTitle = document.createElement("li");
+    heroSpecTitle.className = "list-group-item active";
+    heroSpecTitle.appendChild(document.createTextNode(`Hero Specific Stats`));
+    heroSpecificStatsList.appendChild(heroSpecTitle);
+    for (let i = 0; i < heroSpecificStats.length; i++) {
+      let statName = heroSpecificStats[i].label;
+      let statValue = heroSpecificStats[i].value;
+      let heroSpecStat = document.createElement("li");
+      heroSpecStat.className = "list-group-item";
+      heroSpecStat.appendChild(document.createTextNode(`${statName}: ${statValue}`));
+      heroSpecificStatsList.appendChild(heroSpecStat);
+    }
 }
 
 rhit.populateHeroPage = async function() {
-    //rhit.currentHero = rhit.currentHero.toLowerCase().replace("%20", "-").replace(".", "");
+  //TODO: add handler for null meaning hero has not been played
     rhit.setHeroInfo(rhit.currentHero);
     const heroStatsJson = await getHeroStats("Onslaught-12333", rhit.currentHero, "competitive");
     rhit.setHeroStats(heroStatsJson[rhit.currentHero]);
-    // console.log("Hero stats");
-    // console.log(heroStatsJson);
 }
 
 export function initializeStatPage() {
